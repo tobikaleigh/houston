@@ -29,7 +29,7 @@ class DeviceController extends Controller
 
     public function show(Device $device)
     {
-        //
+        return new DeviceResource($device);
     }
 
     public function edit(Device $device)

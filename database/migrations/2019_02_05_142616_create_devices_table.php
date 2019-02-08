@@ -18,6 +18,8 @@ class CreateDevicesTable extends Migration
             $table->string('name', 64);
             $table->boolean('state')->default(0);
             $table->string('fa_icon', 64)->nullable();
+            $table->integer('updated_at');
+            $table->integer('created_at');
         });
     }
 
