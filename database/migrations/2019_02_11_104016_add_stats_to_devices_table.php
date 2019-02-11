@@ -14,8 +14,8 @@ class AddStatsToDevicesTable extends Migration
     public function up()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->integer('this_week')->nullable();
-            $table->integer('this_month')->nullable();
+            $table->integer('active_this_week')->nullable();
+            $table->integer('active_this_month')->nullable();
         });
     }
 
@@ -27,7 +27,7 @@ class AddStatsToDevicesTable extends Migration
     public function down()
     {
         Schema::table('devices', function (Blueprint $table) {
-            $table->dropColumn(['this_week', 'this_month']);
+            $table->dropColumn(['active_this_week', 'active_this_month']);
         });
     }
 }
