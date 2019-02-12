@@ -33,11 +33,17 @@ class ProcessStatistics implements ShouldQueue
      */
     public function handle()
     {
+        $timestampStartOfToday = Carbon::today()->timestamp;
         $timestampStartOfWeek = Carbon::today()->startOfWeek()->timestamp;
         $timestampStartOfMonth = Carbon::today()->startOfMonth()->timestamp;
         $devices = Device::all();
 
         foreach($devices as $device) {
+            $secondsActiveToday = DB::table('devices_activity_log')->where([
+                ['device_id', $device->id],
+                ['went_offline_at', '>=', $timestampStartOfToday],
+            ])->sum('duration');
+
             $secondsActiveThisWeek = DB::table('devices_activity_log')->where([
                 ['device_id', $device->id],
                 ['went_offline_at', '>=', $timestampStartOfWeek],
@@ -48,8 +54,9 @@ class ProcessStatistics implements ShouldQueue
                 ['went_offline_at', '>=', $timestampStartOfMonth],
             ])->sum('duration');
             
-            $stats['active_this_week'] = $device->this_week + $secondsActiveThisWeek;
-            $stats['active_this_month'] = $device->this_month + $secondsActiveThisMonth;
+            $stats['active_today'] = $device->active_this_today + $secondsActiveToday;
+            $stats['active_this_week'] = $device->active_this_week + $secondsActiveThisWeek;
+            $stats['active_this_month'] = $device->active_this_month + $secondsActiveThisMonth;
 
             $device->update($stats);
         }
