@@ -54,9 +54,9 @@ class ProcessStatistics implements ShouldQueue
                 ['went_offline_at', '>=', $timestampStartOfMonth],
             ])->sum('duration');
             
-            $stats['active_today'] = $device->active_this_today + $secondsActiveToday;
-            $stats['active_this_week'] = $device->active_this_week + $secondsActiveThisWeek;
-            $stats['active_this_month'] = $device->active_this_month + $secondsActiveThisMonth;
+            $stats['active_today'] = $secondsActiveToday;
+            $stats['active_this_week'] = $secondsActiveThisWeek;
+            $stats['active_this_month'] = $secondsActiveThisMonth;
 
             $device->update($stats);
         }
