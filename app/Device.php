@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use \App\ModelDefault;
 
-class Device extends Model
+class Device extends ModelDefault
 {
     protected $fillable = ['state', 'active_today', 'active_this_week', 'active_this_month'];
-    protected $dateFormat = 'U'; // Unix timestamp
 }

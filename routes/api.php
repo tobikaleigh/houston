@@ -13,8 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
+/* Devices */
+Route::resource('devices', 'DeviceController');
+
+/* Settings */
+Route::get('config/settings', 'SettingController@index');
+Route::put('config/settings', 'SettingController@update');
+
+/* Landingpage */
 Route::get('/', function() {
   return response()->json(['msg' => 'Welcome to Houston Control Center!']);
 });
-
-Route::resource('devices', 'DeviceController');
