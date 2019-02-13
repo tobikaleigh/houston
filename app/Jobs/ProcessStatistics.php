@@ -58,6 +58,7 @@ class ProcessStatistics implements ShouldQueue
             $stats['active_this_week'] = $secondsActiveThisWeek;
             $stats['active_this_month'] = $secondsActiveThisMonth;
 
+            $device->timestamps = false; // Don't update timestamp updated_at
             $device->update($stats);
         }
     }
